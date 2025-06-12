@@ -1,0 +1,157 @@
+[gd_scene load_steps=24 format=3 uid="uid://b1kip50tupd2i"]
+
+[ext_resource type="Script" uid="uid://dswka5syx4gin" path="res://main.gd" id="1_plmlx"]
+[ext_resource type="Material" uid="uid://dong3eunthw84" path="res://assets/materials/floor_tiles.tres" id="2_sjm40"]
+[ext_resource type="PackedScene" uid="uid://cxes3urwjpvrp" path="res://assets/meshes/controller_left.glb" id="2_v5h1n"]
+[ext_resource type="Script" uid="uid://b87dusots1o44" path="res://assets/scripts/xrcontroller.gd" id="3_embs8"]
+[ext_resource type="PackedScene" uid="uid://bbfj2v625ku8h" path="res://assets/meshes/controller_right.glb" id="3_gkbuu"]
+[ext_resource type="PackedScene" uid="uid://14s4tmmpwr7k" path="res://assets/teleport_ray_cast.tscn" id="4_jw0w4"]
+[ext_resource type="PackedScene" uid="uid://cq2w4lxfa0ivu" path="res://assets/book_spawner.tscn" id="5_qrrba"]
+[ext_resource type="PackedScene" uid="uid://cijukav1k4htk" path="res://assets/meshes/table.glb" id="6_ouuyx"]
+[ext_resource type="Texture2D" uid="uid://d3jvdukroulbp" path="res://icon.svg" id="6_ygdsy"]
+[ext_resource type="Script" uid="uid://crcp2i7cfwo2m" path="res://assets/scripts/fps_display.gd" id="8_e8oca"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_uw6yp"]
+rayleigh_color = Color(0.216669, 0.397892, 0.701758, 1)
+turbidity = 30.0
+ground_color = Color(0.129412, 0.227451, 0.156863, 1)
+
+[sub_resource type="Sky" id="Sky_o2hj4"]
+sky_material = SubResource("PhysicalSkyMaterial_uw6yp")
+
+[sub_resource type="Environment" id="Environment_yxxca"]
+background_mode = 2
+sky = SubResource("Sky_o2hj4")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eerra"]
+material = ExtResource("2_sjm40")
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2e07y"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x015p"]
+size = Vector3(1.2, 0.72, 0.8)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5jsdm"]
+viewport_path = NodePath("Table/FPSDisplay/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgoyx"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_5jsdm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ylekm"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_kgoyx")
+size = Vector2(0.4, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jytg3"]
+albedo_texture = ExtResource("6_ygdsy")
+metallic_specular = 0.2
+roughness = 0.4
+uv1_scale = Vector3(2, 2, 2)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_p431l"]
+material = SubResource("StandardMaterial3D_jytg3")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tdjbr"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4c57u"]
+size = Vector3(1.2, 0.72, 0.8)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_plmlx")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="controller_left" parent="XROrigin3D/LeftHand" instance=ExtResource("2_v5h1n")]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0.01, 0, 0.01)
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+script = ExtResource("3_embs8")
+
+[node name="controller_right" parent="XROrigin3D/RightHand" instance=ExtResource("3_gkbuu")]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.01, 0, 0.01)
+
+[node name="TeleportRayCast" parent="XROrigin3D/RightHand/controller_right" instance=ExtResource("4_jw0w4")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yxxca")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.766044, -0.492404, 0.413176, 0, 0.642787, 0.766044, -0.642787, -0.586824, 0.492404, 0, 3, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 40.0
+directional_shadow_pancake_size = 3.0
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_eerra")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_2e07y")
+
+[node name="Table" parent="." instance=ExtResource("6_ouuyx")]
+transform = Transform3D(0.4281, 0, 0.903732, 0, 1, 0, -0.903732, 0, 0.4281, -1.82381, 0, -1.58951)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Table"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
+shape = SubResource("BoxShape3D_x015p")
+
+[node name="FPSDisplay" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 0.890213, 0.455545, 0, -0.455545, 0.890213, 0, 0.85, 0)
+mesh = SubResource("QuadMesh_ylekm")
+script = ExtResource("8_e8oca")
+
+[node name="SubViewport" type="SubViewport" parent="Table/FPSDisplay"]
+disable_3d = true
+size = Vector2i(80, 60)
+
+[node name="Label" type="Label" parent="Table/FPSDisplay/SubViewport"]
+offset_right = 80.0
+offset_bottom = 60.0
+text = "000 FPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65623, 0.25, 2.15553)
+mesh = SubResource("BoxMesh_p431l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
+shape = SubResource("BoxShape3D_tdjbr")
+
+[node name="Table2" parent="." instance=ExtResource("6_ouuyx")]
+transform = Transform3D(0.999774, 0, 0.021239, 0, 1, 0, -0.021239, 0, 0.999774, 0.0206509, 0, -2.2139)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Table2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
+shape = SubResource("BoxShape3D_4c57u")
+
+[node name="BookSpawner" parent="Table2" instance=ExtResource("5_qrrba")]
+transform = Transform3D(0.999775, 0, -0.021239, 0, 1, 0, 0.021239, 0, 0.999775, 0, 2, 0)
+
+[connection signal="button_pressed" from="XROrigin3D/RightHand" to="XROrigin3D/RightHand" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/RightHand" to="XROrigin3D/RightHand" method="_on_button_released"]

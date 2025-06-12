@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq2w4lxfa0ivu"]
+
+[ext_resource type="Script" uid="uid://cl86nehwg2nob" path="res://assets/scripts/book_spawner.gd" id="1_rms57"]
+
+[node name="BookSpawner" type="Node3D"]
+script = ExtResource("1_rms57")

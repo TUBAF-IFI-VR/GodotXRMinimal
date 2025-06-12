@@ -1,0 +1,12 @@
+[gd_resource type="ORMMaterial3D" load_steps=4 format=3 uid="uid://dong3eunthw84"]
+
+[ext_resource type="Texture2D" uid="uid://m2qafttdjer" path="res://assets/materials/floor_tiles_02_diff_2k.jpg" id="1_s3e85"]
+[ext_resource type="Texture2D" uid="uid://628xsjdr3xer" path="res://assets/materials/floor_tiles_02_nor_gl_2k.jpg" id="2_b7kem"]
+[ext_resource type="Texture2D" uid="uid://cm2s23pa2ad6l" path="res://assets/materials/floor_tiles_02_arm_2k.jpg" id="3_5qrfk"]
+
+[resource]
+albedo_texture = ExtResource("1_s3e85")
+orm_texture = ExtResource("3_5qrfk")
+normal_enabled = true
+normal_texture = ExtResource("2_b7kem")
+uv1_scale = Vector3(3, 3, 3)

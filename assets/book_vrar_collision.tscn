@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=4 uid="uid://b3waroqhqrus"]
+
+[ext_resource type="Texture2D" uid="uid://dhp5o1dwi37g1" path="res://assets/meshes/book_vrar_book_vrar.png" id="1_1ipve"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wnut"]
+resource_name = "book_cover"
+cull_mode = 2
+albedo_texture = ExtResource("1_1ipve")
+roughness = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftot4"]
+resource_name = "book_pages"
+cull_mode = 2
+albedo_color = Color(0.873365, 0.873365, 0.873365, 1)
+roughness = 0.8
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1gjph"]
+_surfaces = [{
+"aabb": AABB(-0.085, -0.015, -0.12, 0.17, 0.03, 0.24),
+"format": 34896613377,
+"index_count": 18,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAwAEAAIAAAAFAAEABQAAAAYABQAGAAcA"),
+"name": "book_cover",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAA/////wAAAAD///////8AAAAAAAAAAAAA//8AAP//AAD//wAAAAAAAA==")
+}, {
+"aabb": AABB(-0.085, -0.015, -0.12, 0.17, 0.03, 0.24),
+"format": 34896613377,
+"index_count": 18,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAwAEAAEAAwAFAAQABQAGAAQABQAHAAYA"),
+"name": "book_pages",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAAAAAAD/////AAAAAAAA//8AAAAA//8AAAAAAAD///////8AAP//AAD//wAAAAD/////AAAAAAAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fipok"]
+resource_name = "book_vrar_Cube"
+_surfaces = [{
+"aabb": AABB(-0.085, -0.015, -0.12, 0.17, 0.03, 0.24),
+"attribute_data": PackedByteArray("AAD//2YmAABmJv//AAAAAAcAAABmJv//ZiYAAAcA//+Y2QAAZib3/2YmAACY2ff/"),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkA"),
+"material": SubResource("StandardMaterial3D_8wnut"),
+"name": "book_cover",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD/P///AAD///8///8AAAAA/z8AAAAA////P/////8AAP+/AAD//////78AAP//AAD/v/////////+/VNVU1VTVVNVU1VTVVNVU1QAA/38AAP9/AAD/fwAA/3////9/////f////3////9/")
+}, {
+"aabb": AABB(-0.085, -0.015, -0.12, 0.17, 0.03, 0.24),
+"attribute_data": PackedByteArray("/1//v/+f/3//n/+//1//f/9f/3//n/8//5//f/9f/z//X/8//58AAP+f/z//XwAA"),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkA"),
+"material": SubResource("StandardMaterial3D_ftot4"),
+"name": "book_pages",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("AAAAAAAA////////AAD//wAA//8AAP////8AAAAA/////wAAAABU1f///////1TV/////wAAVNX//wAA//9U1f//AAD///+/AAD//////7//////////vwAAAAD///+//7//v/+//7//v/+//7//v6oqqiqqKqoqqiqqKqoqqir/////////////////////")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1gjph")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qpu87"]
+margin = 0.15
+size = Vector3(0.17, 0.03, 0.24)
+
+[node name="book_vrar" type="RigidBody3D"]
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_fipok")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_qpu87")
