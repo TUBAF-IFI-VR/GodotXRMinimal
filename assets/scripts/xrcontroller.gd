@@ -57,8 +57,6 @@ func _on_button_pressed(name):
 			switch_to_vr()
 		else:
 			switch_to_ar()
-	if name == "ax_button":
-		get_node("/root/Main/XROrigin3D").rotate_y(deg_to_rad(30))
 
 func _on_button_released(name):
 	if name == "trigger_click":

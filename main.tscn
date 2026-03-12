@@ -46,6 +46,9 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_kgoyx")
 size = Vector2(0.4, 0.3)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4c57u"]
+size = Vector3(1.2, 0.72, 0.8)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jytg3"]
 albedo_texture = ExtResource("6_ygdsy")
 metallic_specular = 0.2
@@ -61,9 +64,6 @@ size = Vector3(0.5, 0.5, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdjbr"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4c57u"]
-size = Vector3(1.2, 0.72, 0.8)
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_plmlx")
 
@@ -72,22 +72,25 @@ script = ExtResource("1_plmlx")
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
-tracker = &"left_hand"
-
-[node name="controller_left" parent="XROrigin3D/LeftHand" instance=ExtResource("2_v5h1n")]
-transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0.01, 0, 0.01)
-
-[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+[node name="ControllerRight" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 script = ExtResource("3_embs8")
 
-[node name="controller_right" parent="XROrigin3D/RightHand" instance=ExtResource("3_gkbuu")]
-transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.01, 0, 0.01)
+[node name="controller_right" parent="XROrigin3D/ControllerRight" instance=ExtResource("3_gkbuu")]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0.01)
 
-[node name="TeleportRayCast" parent="XROrigin3D/RightHand/controller_right" instance=ExtResource("4_jw0w4")]
+[node name="TeleportRayCast" parent="XROrigin3D/ControllerRight/controller_right" instance=ExtResource("4_jw0w4")]
+
+[node name="ControllerLeft" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+script = ExtResource("3_embs8")
+
+[node name="controller_left" parent="XROrigin3D/ControllerLeft" instance=ExtResource("2_v5h1n")]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0.01)
+
+[node name="TeleportRayCast" parent="XROrigin3D/ControllerLeft/controller_left" instance=ExtResource("4_jw0w4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yxxca")
@@ -132,15 +135,6 @@ text = "000 FPS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65623, 0.25, 2.15553)
-mesh = SubResource("BoxMesh_p431l")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
-shape = SubResource("BoxShape3D_tdjbr")
-
 [node name="Table2" parent="." instance=ExtResource("6_ouuyx")]
 transform = Transform3D(0.999774, 0, 0.021239, 0, 1, 0, -0.021239, 0, 0.999774, 0.0206509, 0, -2.2139)
 
@@ -151,7 +145,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
 shape = SubResource("BoxShape3D_4c57u")
 
 [node name="BookSpawner" parent="Table2" instance=ExtResource("5_qrrba")]
-transform = Transform3D(0.999775, 0, -0.021239, 0, 1, 0, 0.021239, 0, 0.999775, 0, 2, 0)
+transform = Transform3D(0.999775, 0, -0.021239, 0, 1, 0, 0.021239, 0, 0.999775, -0.15673, 2, -0.00332952)
 
-[connection signal="button_pressed" from="XROrigin3D/RightHand" to="XROrigin3D/RightHand" method="_on_button_pressed"]
-[connection signal="button_released" from="XROrigin3D/RightHand" to="XROrigin3D/RightHand" method="_on_button_released"]
+[node name="Cube2" type="MeshInstance3D" parent="Table2"]
+transform = Transform3D(0.999775, 0, -0.021239, 0, 1, 0, 0.021239, 0, 0.999775, 0.35961, 0.972877, -0.0871873)
+mesh = SubResource("BoxMesh_p431l")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Table2/Cube2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2/Cube2/StaticBody3D"]
+shape = SubResource("BoxShape3D_tdjbr")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65623, 0.25, 2.15553)
+mesh = SubResource("BoxMesh_p431l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
+shape = SubResource("BoxShape3D_tdjbr")
+
+[connection signal="button_pressed" from="XROrigin3D/ControllerRight" to="XROrigin3D/ControllerRight" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/ControllerRight" to="XROrigin3D/ControllerRight" method="_on_button_released"]
+[connection signal="button_pressed" from="XROrigin3D/ControllerLeft" to="XROrigin3D/ControllerLeft" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/ControllerLeft" to="XROrigin3D/ControllerLeft" method="_on_button_released"]
