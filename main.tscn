@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b1kip50tupd2i"]
+[gd_scene format=3 uid="uid://b1kip50tupd2i"]
 
 [ext_resource type="Script" uid="uid://dswka5syx4gin" path="res://main.gd" id="1_plmlx"]
 [ext_resource type="Material" uid="uid://dong3eunthw84" path="res://assets/materials/floor_tiles.tres" id="2_sjm40"]
@@ -64,106 +64,106 @@ size = Vector3(0.5, 0.5, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdjbr"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=1346018772]
 script = ExtResource("1_plmlx")
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=1243076040]
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=308069316]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="ControllerRight" type="XRController3D" parent="XROrigin3D"]
+[node name="ControllerRight" type="XRController3D" parent="XROrigin3D" unique_id=1959003229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 script = ExtResource("3_embs8")
 
-[node name="controller_right" parent="XROrigin3D/ControllerRight" instance=ExtResource("3_gkbuu")]
+[node name="controller_right" parent="XROrigin3D/ControllerRight" unique_id=1596076278 instance=ExtResource("3_gkbuu")]
 transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0.01)
 
-[node name="TeleportRayCast" parent="XROrigin3D/ControllerRight/controller_right" instance=ExtResource("4_jw0w4")]
+[node name="TeleportRayCast" parent="XROrigin3D/ControllerRight/controller_right" unique_id=1972682940 instance=ExtResource("4_jw0w4")]
 
-[node name="ControllerLeft" type="XRController3D" parent="XROrigin3D"]
+[node name="ControllerLeft" type="XRController3D" parent="XROrigin3D" unique_id=1135968721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 script = ExtResource("3_embs8")
 
-[node name="controller_left" parent="XROrigin3D/ControllerLeft" instance=ExtResource("2_v5h1n")]
+[node name="controller_left" parent="XROrigin3D/ControllerLeft" unique_id=1061265451 instance=ExtResource("2_v5h1n")]
 transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0.01)
 
-[node name="TeleportRayCast" parent="XROrigin3D/ControllerLeft/controller_left" instance=ExtResource("4_jw0w4")]
+[node name="TeleportRayCast" parent="XROrigin3D/ControllerLeft/controller_left" unique_id=1555347772 instance=ExtResource("4_jw0w4")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1400421254]
 environment = SubResource("Environment_yxxca")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1419522475]
 transform = Transform3D(0.766044, -0.492404, 0.413176, 0, 0.642787, 0.766044, -0.642787, -0.586824, 0.492404, 0, 3, 0)
 shadow_enabled = true
 directional_shadow_max_distance = 40.0
 directional_shadow_pancake_size = 3.0
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1128400360]
 mesh = SubResource("PlaneMesh_eerra")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=2078001071]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1373000839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_2e07y")
 
-[node name="Table" parent="." instance=ExtResource("6_ouuyx")]
+[node name="Table" parent="." unique_id=1900329104 instance=ExtResource("6_ouuyx")]
 transform = Transform3D(0.4281, 0, 0.903732, 0, 1, 0, -0.903732, 0, 0.4281, -1.82381, 0, -1.58951)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Table"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Table" unique_id=1847249177]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D" unique_id=1528807410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
 shape = SubResource("BoxShape3D_x015p")
 
-[node name="FPSDisplay" type="MeshInstance3D" parent="Table"]
+[node name="FPSDisplay" type="MeshInstance3D" parent="Table" unique_id=667559353]
 transform = Transform3D(1, 0, 0, 0, 0.890213, 0.455545, 0, -0.455545, 0.890213, 0, 0.85, 0)
 mesh = SubResource("QuadMesh_ylekm")
 script = ExtResource("8_e8oca")
 
-[node name="SubViewport" type="SubViewport" parent="Table/FPSDisplay"]
+[node name="SubViewport" type="SubViewport" parent="Table/FPSDisplay" unique_id=1911706821]
 disable_3d = true
 size = Vector2i(80, 60)
 
-[node name="Label" type="Label" parent="Table/FPSDisplay/SubViewport"]
+[node name="Label" type="Label" parent="Table/FPSDisplay/SubViewport" unique_id=1889542171]
 offset_right = 80.0
 offset_bottom = 60.0
 text = "000 FPS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Table2" parent="." instance=ExtResource("6_ouuyx")]
+[node name="Table2" parent="." unique_id=1361724070 instance=ExtResource("6_ouuyx")]
 transform = Transform3D(0.999774, 0, 0.021239, 0, 1, 0, -0.021239, 0, 0.999774, 0.0206509, 0, -2.2139)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Table2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Table2" unique_id=572290113]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2/StaticBody3D" unique_id=447988649]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
 shape = SubResource("BoxShape3D_4c57u")
 
-[node name="BookSpawner" parent="Table2" instance=ExtResource("5_qrrba")]
+[node name="BookSpawner" parent="Table2" unique_id=806975354 instance=ExtResource("5_qrrba")]
 transform = Transform3D(0.999775, 0, -0.021239, 0, 1, 0, 0.021239, 0, 0.999775, -0.15673, 2, -0.00332952)
 
-[node name="Cube2" type="MeshInstance3D" parent="Table2"]
+[node name="Cube2" type="MeshInstance3D" parent="Table2" unique_id=1311035477]
 transform = Transform3D(0.999775, 0, -0.021239, 0, 1, 0, 0.021239, 0, 0.999775, 0.35961, 0.972877, -0.0871873)
 mesh = SubResource("BoxMesh_p431l")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Table2/Cube2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Table2/Cube2" unique_id=542335341]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2/Cube2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2/Cube2/StaticBody3D" unique_id=1419076518]
 shape = SubResource("BoxShape3D_tdjbr")
 
-[node name="Cube" type="MeshInstance3D" parent="."]
+[node name="Cube" type="MeshInstance3D" parent="." unique_id=2090315447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65623, 0.25, 2.15553)
 mesh = SubResource("BoxMesh_p431l")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" unique_id=1944309315]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" unique_id=1012727716]
 shape = SubResource("BoxShape3D_tdjbr")
 
 [connection signal="button_pressed" from="XROrigin3D/ControllerRight" to="XROrigin3D/ControllerRight" method="_on_button_pressed"]
