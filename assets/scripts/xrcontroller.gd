@@ -49,15 +49,15 @@ func switch_to_vr():
 	get_parent().get_parent().get_node("WorldEnvironment").environment.ambient_light_source = Environment.AMBIENT_SOURCE_BG
 	return true
 
-func _on_button_pressed(name):
-	if name == "trigger_click":
+func _on_button_pressed(button):
+	if button == "trigger_click":
 		toggle_raycast(true)
-	if name == "by_button":
+	if button == "by_button":
 		if use_ar:
 			switch_to_vr()
 		else:
 			switch_to_ar()
 
-func _on_button_released(name):
-	if name == "trigger_click":
+func _on_button_released(button):
+	if button == "trigger_click":
 		toggle_raycast(false)
